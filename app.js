@@ -26,9 +26,9 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { use
 //serve public files
 app.use(express.static("public"));
 
-// * api routes
+// api routes
 
-//get workout
+//GET: get workout (the main API route: "/api/workouts" )
 app.get("api/workouts", (req, res) => {
     db.Workout.find({})
     .then((dbWorkout) => {
@@ -39,7 +39,29 @@ app.get("api/workouts", (req, res) => {
     });
 });
 
+//PUT:  Edit workouts ("/api/workouts/:id")
+// mongo update method has additional "operator keys"
+app.put("/api/workouts/:id", (req, res) => {
+    db.Workout.updateOne({
+     _id: req.params.id
+    }, {
+      $push: {
+        exercises: req.body
+      }
+    })
+    .then((dbWorkout) => {
+        res.json(dbWorkout);
+    })
+      .catch((err) => {
+        res.json(err)
+      });
+  });
 
+//POST:  add  a new workout
+
+//GET(`/api/workouts/`)  >>> get workouts in a range
+
+// ...........
 
 // app listen
 app.listen(PORT, () => {
