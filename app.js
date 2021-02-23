@@ -4,6 +4,12 @@
 const  express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+
+// require mongoose schema file 
+var db = require("./workout");
+
+
+
 const app = express();
 
 app.use(logger("dev"));
@@ -13,13 +19,10 @@ app.use(logger("dev"));
 const PORT = process.env.PORT || 3000; 
 
 
-// * add path to schema files in models dir
-// ... 
 
 
 //middleware 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 
 // connection string 
@@ -31,8 +34,6 @@ app.use(express.static("public"));
 
 // * api routes
 //  ....
-
-
 
 
 // app listen
