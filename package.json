@@ -1,5 +1,5 @@
 {
-  "name": "mongoose_skeleton",
+  "name": "nosql-fitness-tracker",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "seed": "node seeders/seed.js"
+    "seed": "node seeders/seed.js",
+    "ns": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",

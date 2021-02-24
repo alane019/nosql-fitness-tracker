@@ -1,9 +1,9 @@
 let mongoose = require("mongoose");
 var db = require("../workout.js");
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:/workout", { useNewUrlParser: true });
 
-mongoose.connect("mongodb://localhost/workout", {
+mongoose.connect("mongodb://localhost:27017/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
@@ -126,8 +126,14 @@ let workoutSeed = [
   }
 ];
 
+/*
+const Workout = mongoose.model("Workout", WorkoutSchema);
+module.exports = Workout;
+*/
+
+
 db.collection.deleteMany({})
-  .then(() => db.Workout.collection.insertMany(workoutSeed))
+  .then(() => db.WorkoutSchema.insertMany(workoutSeed))
   .then(data => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
