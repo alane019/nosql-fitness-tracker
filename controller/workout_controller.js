@@ -7,15 +7,29 @@ const path = require("path");
 
 module.exports = function (app) {
 
-
 //mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fitness', { useNewUrlParser: true });
-//root
+
+//index files of specified static file directory (public)
+// File:  root/index file 
 app.get("/", (req, res) => {
   res.status(200).end();
 });
 
+// public file
+app.get("/stats", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/stats.html"));
+});
+
+//public file
+app.get("/exercise", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/exercise.html"));
+});
+
+
 console.log({db});
 
+
+//API routes
 
 //GET: get workout (the main API route: "/api/workouts" )
 app.get("api/workouts", (req, res) => {
@@ -24,7 +38,7 @@ app.get("api/workouts", (req, res) => {
         res.json(dbWorkout);
     })
     .catch((err) => {
-        res.json(err);
+        res.json(err);  console.log(err); 
     });
 });
 
@@ -41,12 +55,23 @@ app.put("/api/workouts/:id", (req, res) => {
     .then((dbWorkout) => {
         res.json(dbWorkout);
     })
-      .catch((err) => {
-        res.json(err)
-      });
+    .catch((err) => {
+      res.json(err);  console.log(err);
   });
+});
+
+
 
 //POST:  add  a new workout
+app.post("/api/workouts", ({ body }, res) => {
+  db.Workout.create(body)
+  .then((dbWorkout) => {
+    res.json(dbWorkout); 
+  })
+  .catch((err) => {
+    res.json(err);  console.log(err);
+  });
+});
 
 
 
