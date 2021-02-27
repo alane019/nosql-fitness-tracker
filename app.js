@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3000;
 let mongoose = require("mongoose"); 
 
 app.use(logger("dev"));
+
 app.use(logger("tiny"));
 
 //middleware 
@@ -22,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness", {
 // include api routes
 var controller = require("./controller/workout_controller.js");
 controller(app);
-//require("./controller/workout_controller.js")(app);
+
 
 // app listen 
 app.listen(PORT, () => {
