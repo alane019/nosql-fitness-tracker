@@ -1,8 +1,22 @@
 const db = require("../models");
 const path = require("path");
+const express = require("express");
+const app = express();
 const router = require("express").Router();
+let mongoose = require("mongoose"); 
 
-module.exports = function (app) {
+//let arrVars = new Array(({db}).toString(), ({path}).toString(), ({express}).toString(), ({app}).toString(), ({router}).toString(), ({mongoose}).toString()).toString()
+
+console.dir(db, path, express, app, router, mongoose)
+
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness", {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+});
+
+
 
 // root/index file 
 router.get("/", (req, res) => {
@@ -81,4 +95,8 @@ router.get("/api/workouts/range", ({ body }, res) => {
 });
 
 
-};
+process.on('uncaughtException', err => {
+  console.log(err);
+})
+
+module.exports = router;
