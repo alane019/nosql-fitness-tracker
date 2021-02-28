@@ -19,7 +19,7 @@ app.use(express.json());
 // include api routes
 var controller = require("./controller/workout_controller.js");
 
-//controller(app);
+
 app.use(controller);
 
 // app listen 

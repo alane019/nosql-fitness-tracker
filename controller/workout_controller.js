@@ -37,7 +37,7 @@ console.log({db});
 
 //API routes
  //get workouts
-router.get("api/workouts", (req, res) => {
+router.get("/api/workouts", (req, res) => {
     db.Workout.find({})
     .then((dbWorkout) => {
         res.send(dbWorkout);
@@ -76,7 +76,7 @@ router.post("/api/workouts", ({ body }, res) => {
     if (err) {
       throw (err);
     } else {
-      res.status(200);
+      res.status(400);
     }
     //console.log(err);  /*  res.json(err); */
   });
