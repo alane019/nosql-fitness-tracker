@@ -37,14 +37,22 @@ console.log({db});
 
 //API routes
  //get workouts
-router.get("/api/workouts", (req, res) => {
-    db.Workout.find({})
-    .then((dbWorkout) => {
-        res.send(dbWorkout);
-    })
-    .catch((err) => {
-        res.send(err);   
-    });
+ router.get("/api/workouts", (req, res) => {
+  db.Workout.aggregate( [
+    { 
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration"}
+      }
+    }
+  ],
+  (err, data) => {
+    console.log();
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 
