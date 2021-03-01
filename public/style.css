@@ -441,3 +441,7 @@ form > button {
     right: -320px;
   }
 }
+
+.ui.raised.card.m-auto {
+  box-shadow: #15140521 0px 0px 20px 3px;
+}
